@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const app = express();
-const cors=cors();
+
 const userRouter = require("./routes/users")
 const userAuth = require("./routes/auth")
 const userPost = require("./routes/posts")
@@ -18,30 +18,30 @@ dotenv.config();
 mongoose.connect(process.env.mongo_url, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("connected to MongoDB")
 });
-app.use(cors());
-app.use("/images", express.static(path.join(__dirname, "public/images")));
+
+// app.use("/images", express.static(path.join(__dirname, "public/images")));
 //middleware
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "public/images");
-    },
-    filename: (req, file, cb) => {
-        cb(null, req.body.name);
-    },
-});
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, "public/images");
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, req.body.name);
+//     },
+// });
 
-const upload = multer({ storage: storage });
-app.post("/api/upload", upload.single("file"), (req, res) => {
-    try {
-        return res.status(200).json("File uploded successfully");
-    } catch (error) {
-        console.error(error);
-    }
-});
+// const upload = multer({ storage: storage });
+// app.post("/api/upload", upload.single("file"), (req, res) => {
+//     try {
+//         return res.status(200).json("File uploded successfully");
+//     } catch (error) {
+//         console.error(error);
+//     }
+// });
 
 
 //user all path after that appended eg userRouter get appended after api/user
