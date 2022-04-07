@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const app = express();
-
+const cors= require("cors")
 const userRouter = require("./routes/users")
 const userAuth = require("./routes/auth")
 const userPost = require("./routes/posts")
@@ -19,6 +19,7 @@ mongoose.connect(process.env.mongo_url, { useNewUrlParser: true, useUnifiedTopol
     console.log("connected to MongoDB")
 });
 
+app.use(cors({ origin: process.env.PORT, credentials: true }));
 // app.use("/images", express.static(path.join(__dirname, "public/images")));
 //middleware
 app.use(express.json());
