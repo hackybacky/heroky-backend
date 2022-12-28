@@ -19,7 +19,7 @@ mongoose.connect(process.env.mongo_url, { useNewUrlParser: true, useUnifiedTopol
     console.log("connected to MongoDB")
 });
 
-app.use(cors({ origin: process.env.HOST, credentials: true }));
+app.use(cors({ origin: process.env.HOST , credentials: true }));
 // app.use("/images", express.static(path.join(__dirname, "public/images")));
 //middleware
 app.use(express.json());
@@ -55,5 +55,6 @@ app.use("/api/messages",userMessages)
 //listening port 8800
 
 app.listen(process.env.PORT || 8800, () => {
+    console.log(process.env.PORT)
     console.log("Running at 8800")
 })
